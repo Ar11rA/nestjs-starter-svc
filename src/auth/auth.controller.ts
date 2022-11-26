@@ -3,21 +3,19 @@ import { IUserService } from 'src/users/interfaces/user.service.interface';
 
 @Controller('auth')
 export class AuthController {
+  userService: IUserService;
 
-    userService: IUserService;
-    
-    constructor(@Inject('IUserService') userService: IUserService) {
-        this.userService = userService;
-    }
+  constructor(@Inject('IUserService') userService: IUserService) {
+    this.userService = userService;
+  }
 
-    @Post('/login') 
-    login() {
-        return this.userService.getUsers();
-    }
+  @Post('/login')
+  login() {
+    return 'TODO';
+  }
 
-    @Post('/register') 
-    register() {
-        
-    }
-
+  @Post('/register')
+  register() {
+    return 'TODO';
+  }
 }

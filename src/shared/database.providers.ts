@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { User } from './users/user.entity';
+import { User } from '../users/user.entity';
 
 export const databaseProviders = [
   {
@@ -11,11 +11,11 @@ export const databaseProviders = [
         port: 5432,
         username: 'postgres',
         password: 'pass1234',
-        database: 'mocha',
+        database: 'mocha'
       });
       sequelize.addModels([User]);
       await sequelize.sync();
       return sequelize;
-    },
-  },
+    }
+  }
 ];

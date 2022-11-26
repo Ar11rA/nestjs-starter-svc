@@ -5,16 +5,21 @@ import { UsersController } from './user.controller';
 
 @Module({
   controllers: [UsersController],
-  providers: [{
-    useClass: UserService,
-    provide: 'IUserService'
-  }, {
-    useClass: UserRepository,
-    provide: 'IUserRepository'
-  }],
-  exports: [{
-    useClass: UserService,
-    provide: 'IUserService'
-  }],
+  providers: [
+    {
+      useClass: UserService,
+      provide: 'IUserService'
+    },
+    {
+      useClass: UserRepository,
+      provide: 'IUserRepository'
+    }
+  ],
+  exports: [
+    {
+      useClass: UserService,
+      provide: 'IUserService'
+    }
+  ]
 })
 export class UsersModule {}
