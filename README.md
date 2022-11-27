@@ -20,6 +20,22 @@
 $ npm install
 ```
 
+## Environment setup
+
+Run postgres using docker
+```sh
+docker run --name demo-postgres -e POSTGRES_PASSWORD=pass1234 -p5432:5432 -e PGDATA=/var/lib/postgresql/data/pgdata -v /~/Documents/docker:/var/lib/postgresql/data -d postgres
+```
+
+```bash
+DB_HOST=
+DB_PORT=
+DB_USERNAME=
+DB_PASSWORD=
+DB_NAME=
+JWT_SECRET=
+```
+
 ## Running the app
 
 ```bash
