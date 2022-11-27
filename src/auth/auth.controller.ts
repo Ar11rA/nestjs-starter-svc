@@ -1,12 +1,14 @@
-import { Controller, Inject, Post } from '@nestjs/common';
-import { IUserService } from 'src/users/interfaces/user.service.interface';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { CreateUserDTO } from 'src/users/user.dto';
+import { IAuthService } from './interfaces/auth.service.interface';
+
 
 @Controller('auth')
 export class AuthController {
-  userService: IUserService;
+  authService: IAuthService;
 
-  constructor(@Inject('IUserService') userService: IUserService) {
-    this.userService = userService;
+  constructor(@Inject('IAuthService') authService: IAuthService) {
+    this.authService = authService;
   }
 
   @Post('/login')
@@ -15,7 +17,7 @@ export class AuthController {
   }
 
   @Post('/register')
-  register() {
-    return 'TODO';
+  register(@Body() createUserDTO: CreateUserDTO) {
+    return this.authService.register(createUserDTO);
   }
 }

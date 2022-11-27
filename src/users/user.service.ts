@@ -3,7 +3,8 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { IUserRepository } from './interfaces/user.repository.interface';
 import { IUserService } from './interfaces/user.service.interface';
-import { UserDTO } from './user.dto';
+import { CreateUserDTO, UserDTO } from './user.dto';
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -15,12 +16,13 @@ export class UserService implements IUserService {
   ) {
     this.userRepository = userRepository;
   }
+  
   async getUsers() {
     this.logger.info('Fetching users!');
     return await this.userRepository.getUsers();
   }
 
-  async createUser(user: UserDTO) {
+  async createUser(user: CreateUserDTO) {
     return await this.userRepository.createUser(user);
   }
 
@@ -29,6 +31,11 @@ export class UserService implements IUserService {
     if (!user) {
       throw new NotFoundException('No user found!');
     }
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.getUserByEmail(email);
     return user;
   }
 }

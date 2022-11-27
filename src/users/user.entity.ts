@@ -14,5 +14,8 @@ export class User extends Model {
   id: number;
 
   @Column
-  name: string;
+  email: string;
+
+  @Column
+  password: string;
 }

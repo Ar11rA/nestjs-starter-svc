@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { IUserRepository } from './interfaces/user.repository.interface';
 import { User } from './user.entity';
-import { UserDTO } from './user.dto';
+import { UserDTO, CreateUserDTO } from './user.dto';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
@@ -9,15 +9,16 @@ export class UserRepository implements IUserRepository {
     const users: User[] = await User.findAll({ raw: true });
     return users.map((user) => {
       const userDTO: UserDTO = {
-        name: user.name
+        email: user.email
       };
       return userDTO;
     });
   }
 
-  async createUser(user: UserDTO) {
+  async createUser(user: CreateUserDTO) {
     await User.create({
-      name: user.name
+      email: user.email,
+      password: user.password,
     });
   }
 
@@ -26,6 +27,14 @@ export class UserRepository implements IUserRepository {
       where: { id },
       raw: true
     });
-    return user ? user.name : null;
+    return user ? user.email : null;
+  }
+
+  async getUserByEmail(email: string) {
+    const user = await User.findOne({
+      where: { email },
+      raw: true
+    });
+    return user;
   }
 }
