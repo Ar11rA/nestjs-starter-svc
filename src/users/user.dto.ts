@@ -22,4 +22,6 @@ export class CreateUserDTO {
     message: 'Password not strong enough!'
   })
   password: string;
+
+  salt: any;
 }

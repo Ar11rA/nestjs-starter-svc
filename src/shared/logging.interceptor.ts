@@ -5,6 +5,7 @@ import {
   CallHandler,
   Inject
 } from '@nestjs/common';
+import { Request } from 'express';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -15,7 +16,7 @@ export class LoggingInterceptor implements NestInterceptor {
   constructor(@Inject(WINSTON_MODULE_PROVIDER) private logger: Logger) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const request: any = context.switchToHttp().getRequest();
+    const request: Request = context.switchToHttp().getRequest();
 
     this.logger.info(
       `Starting ${request.method} - ${request.originalUrl} - ${JSON.stringify(

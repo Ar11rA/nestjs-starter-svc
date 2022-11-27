@@ -9,6 +9,7 @@ import { DatabaseModule } from './shared/database.module';
 import { LoggerConfig } from './shared/logger.config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { JwtModule } from '@nestjs/jwt';
 
 const logger: LoggerConfig = new LoggerConfig();
 
@@ -17,10 +18,10 @@ const logger: LoggerConfig = new LoggerConfig();
     ConfigModule.forRoot({
       isGlobal: true
     }),
+    WinstonModule.forRoot(logger.console()),
     UsersModule,
     AuthModule,
-    DatabaseModule,
-    WinstonModule.forRoot(logger.console())
+    DatabaseModule
   ],
   controllers: [AppController],
   providers: [

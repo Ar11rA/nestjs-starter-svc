@@ -1,7 +1,17 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Req
+} from '@nestjs/common';
+import { Request } from 'express';
 import { IUserService } from './interfaces/user.service.interface';
 import { CreateUserDTO, UserDTO } from './user.dto';
 
+// Note - Not to be used in production setups, unless admin role added
 @Controller('users')
 export class UsersController {
   userService: IUserService;

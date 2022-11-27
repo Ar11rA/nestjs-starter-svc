@@ -1,35 +1,70 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UnauthorizedException
+} from '@nestjs/common';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import * as bcrypt from 'bcrypt';
 import { IUserService } from 'src/users/interfaces/user.service.interface';
-import { CreateUserDTO } from 'src/users/user.dto';
+import { CreateUserDTO, UserDTO } from 'src/users/user.dto';
 import { Logger } from 'winston';
 import { IAuthService } from './interfaces/auth.service.interface';
+import { JwtService } from '@nestjs/jwt';
+import { LoginResponse } from './auth.dto';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class AuthService implements IAuthService {
-  userService: IUserService;
 
   constructor(
-    @Inject('IUserService') userService: IUserService,
-    @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger
+    @Inject('IUserService') private userService: IUserService,
+    @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger,
+    private readonly jwtService: JwtService
   ) {
-    this.userService = userService;
   }
 
-  async login(createUserDTO: CreateUserDTO): Promise<string> {
-    // check user in DB
-    // match passwords
-    // generate JWT
-    this.logger.info(process.env.JWT_SECRET);
-    return 'token';
+  async login(createUserDTO: CreateUserDTO): Promise<LoginResponse> {
+    const user = await this.userService.getUserByEmail(createUserDTO.email);
+    if (!user) {
+      this.logger.error(`Login failed for ${createUserDTO.email}`);
+      throw new BadRequestException('Username does not exist!');
+    }
+    const result: boolean = await bcrypt.compare(
+      createUserDTO.password,
+      user.password
+    );
+    if (!result) {
+      this.logger.error(`Login failed for ${createUserDTO.email}`);
+      throw new UnauthorizedException('Username Password does not match!');
+    }
+    const payload = { username: user.email, sub: user.id };
+    return {
+      token: this.jwtService.sign(payload)
+    };
   }
 
   async register(createUserDTO: CreateUserDTO): Promise<void> {
     const user = await this.userService.getUserByEmail(createUserDTO.email);
     if (user) {
+      this.logger.error(`Regsiter failed for ${createUserDTO.email}`);
       throw new BadRequestException('Username already exists!');
     }
-    // TODO: hash the password
-    await this.userService.createUser(createUserDTO);
+    const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS));
+
+    const hashedPassword = await bcrypt.hash(createUserDTO.password, salt);
+    await this.userService.createUser({
+      ...createUserDTO,
+      password: hashedPassword,
+      salt
+    });
+  }
+
+  async getCurrentClaims(token: string): Promise<UserDTO> {
+    const decoded: any = await this.jwtService.decode(token);
+    const user: User = await this.userService.getUserByEmail(decoded.username);
+    return {
+      email: user.email
+    };
   }
 }

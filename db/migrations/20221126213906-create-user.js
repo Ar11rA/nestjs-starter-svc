@@ -19,6 +19,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      salt: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       isActive: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
