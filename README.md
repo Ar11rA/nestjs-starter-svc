@@ -11,6 +11,7 @@
   - HTTP logging
   - Docker
   - Unit testing
+  - Configuration
 - Note: This is a boilerplate. For production readiness, cater the implementations according to the requirements
 
 ## Installation
