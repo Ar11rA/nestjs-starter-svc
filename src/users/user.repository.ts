@@ -18,7 +18,7 @@ export class UserRepository implements IUserRepository {
   async createUser(user: CreateUserDTO) {
     await User.create({
       email: user.email,
-      password: user.password,
+      password: user.password
     });
   }
 

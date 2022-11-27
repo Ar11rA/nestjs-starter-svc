@@ -15,7 +15,7 @@ const logger: LoggerConfig = new LoggerConfig();
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true
     }),
     UsersModule,
     AuthModule,
@@ -31,4 +31,4 @@ const logger: LoggerConfig = new LoggerConfig();
     }
   ]
 })
-export class AppModule { }
+export class AppModule {}

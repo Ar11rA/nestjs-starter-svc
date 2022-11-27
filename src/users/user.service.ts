@@ -3,7 +3,7 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { IUserRepository } from './interfaces/user.repository.interface';
 import { IUserService } from './interfaces/user.service.interface';
-import { CreateUserDTO, UserDTO } from './user.dto';
+import { CreateUserDTO } from './user.dto';
 import { User } from './user.entity';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class UserService implements IUserService {
   ) {
     this.userRepository = userRepository;
   }
-  
+
   async getUsers() {
     this.logger.info('Fetching users!');
     return await this.userRepository.getUsers();

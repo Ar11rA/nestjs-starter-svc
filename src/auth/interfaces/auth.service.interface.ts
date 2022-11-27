@@ -1,4 +1,4 @@
-import { CreateUserDTO } from "src/users/user.dto";
+import { CreateUserDTO } from 'src/users/user.dto';
 
 export interface IAuthService {
   login(createUserDTO: CreateUserDTO): Promise<string>;

@@ -1,4 +1,10 @@
-import { IsEmail, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength
+} from 'class-validator';
 
 export class UserDTO {
   @IsEmail()
@@ -12,6 +18,8 @@ export class CreateUserDTO {
   @IsString()
   @MinLength(8)
   @MaxLength(24)
-  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { message: 'Password not strong enough!' })
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'Password not strong enough!'
+  })
   password: string;
 }
