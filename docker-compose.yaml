@@ -1,0 +1,30 @@
+version: "3"
+services:
+  backend:
+    build: .
+    container_name: nest-be
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=nest-postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=pass1234
+      - DB_NAME=mocha
+      - JWT_SECRET=secret
+      - JWT_EXPIRY_IN_SECS=900s
+      - SALT_ROUNDS=10
+    command: >
+      bash -c "sleep 5 && node dist/main.js"
+  postgres:
+    container_name: nest-postgres
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: pass1234
+      PGDATA: /var/lib/postgresql/data/PGDATA
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/Documents/docker:/var/lib/postgresql/data
