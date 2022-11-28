@@ -1,9 +1,11 @@
+/* eslint-disable */
 import { Test, TestingModule } from '@nestjs/testing';
-import * as bcrypt from 'bcrypt';
-import { CreateUserDTO } from 'src/users/user.dto';
-import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+
+import { CreateUserDTO } from 'src/users/user.dto';
+import { AuthService } from './auth.service';
 
 const salt = bcrypt.genSaltSync(3);
 const hashedPassword = bcrypt.hashSync('pass1234', salt);
@@ -18,17 +20,17 @@ const userServiceMock = {
       password: hashedPassword
     });
   },
-  createUser: (user: CreateUserDTO) => Promise.resolve([])
+  createUser: (_: CreateUserDTO) => Promise.resolve([])
 };
 
 const loggerMock = {
-  info: (msg: string) => {},
-  error: (msg: string) => {}
+  info: (_: string) => {},
+  error: (_: string) => {}
 };
 
 const jwtServiceMock = {
-  sign: (payload: any) => 'abcdefghi',
-  decode: (token: string) => Promise.resolve([])
+  sign: (_: any) => 'abcdefghi',
+  decode: (_: string) => Promise.resolve([])
 };
 
 describe('AuthService', () => {

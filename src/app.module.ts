@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './shared/database.module';
 import { LoggerConfig } from './shared/logger.config';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { QuoteModule } from './quote/quote.module';
 
 const logger: LoggerConfig = new LoggerConfig();
 
@@ -21,7 +22,8 @@ const logger: LoggerConfig = new LoggerConfig();
     WinstonModule.forRoot(logger.console()),
     UsersModule,
     AuthModule,
-    DatabaseModule
+    DatabaseModule,
+    QuoteModule
   ],
   controllers: [AppController],
   providers: [
