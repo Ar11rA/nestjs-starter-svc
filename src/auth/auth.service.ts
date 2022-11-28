@@ -16,13 +16,11 @@ import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class AuthService implements IAuthService {
-
   constructor(
     @Inject('IUserService') private userService: IUserService,
     @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger,
     private readonly jwtService: JwtService
-  ) {
-  }
+  ) {}
 
   async login(createUserDTO: CreateUserDTO): Promise<LoginResponse> {
     const user = await this.userService.getUserByEmail(createUserDTO.email);

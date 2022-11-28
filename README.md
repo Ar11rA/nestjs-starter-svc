@@ -6,12 +6,14 @@
 - Basic authentication microservice consisting of
   - Logging
   - Swagger
-  - JWT
+  - JWT and cookies
   - Migrations
-  - HTTP logging
+  - HTTP logging - Interceptors
   - Docker
   - Unit testing
   - Configuration
+  - Guards
+  - Validations
 - Note: This is a boilerplate. For production readiness, cater the implementations according to the requirements
 
 ## Installation

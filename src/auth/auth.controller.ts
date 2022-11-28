@@ -4,13 +4,12 @@ import {
   Get,
   Inject,
   Post,
-  Req,
   Res,
-  Session,
   UseGuards
 } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { CreateUserDTO } from 'src/users/user.dto';
+import { Response } from 'express';
+import { CurrentUser } from 'src/users/user.decorator';
+import { CreateUserDTO, UserDTO } from 'src/users/user.dto';
 import { AuthGuard } from './auth.guard';
 import { IAuthService } from './interfaces/auth.service.interface';
 
@@ -25,8 +24,7 @@ export class AuthController {
   @Post('/login')
   async login(@Body() createUserDTO: CreateUserDTO, @Res() res: Response) {
     const response = await this.authService.login(createUserDTO);
-    res.cookie('token', response.token);
-    res.send('ok');
+    res.cookie('token', response.token).sendStatus(200);
   }
 
   @Post('/register')
@@ -37,8 +35,8 @@ export class AuthController {
   // sample route to show cookies working
   @UseGuards(AuthGuard)
   @Get('/current')
-  getCurrentClaims(@Req() request: Request) {
-    return this.authService.getCurrentClaims(request.cookies.token);
+  getCurrentClaims(@CurrentUser() user: UserDTO) {
+    return user;
   }
 
   @Get('/logout')

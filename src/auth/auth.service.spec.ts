@@ -16,14 +16,14 @@ const userServiceMock = {
     return Promise.resolve({
       email: 'abc@mail.com',
       password: hashedPassword
-    })
+    });
   },
   createUser: (user: CreateUserDTO) => Promise.resolve([])
 };
 
 const loggerMock = {
-  info: (msg: string) => { },
-  error: (msg: string) => { }
+  info: (msg: string) => {},
+  error: (msg: string) => {}
 };
 
 const jwtServiceMock = {
@@ -36,16 +36,21 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService, {
-        provide: 'IUserService',
-        useValue: userServiceMock
-      }, {
+      providers: [
+        AuthService,
+        {
+          provide: 'IUserService',
+          useValue: userServiceMock
+        },
+        {
           provide: 'winston',
           useValue: loggerMock
-        }, {
+        },
+        {
           provide: JwtService,
           useValue: jwtServiceMock
-        }]
+        }
+      ]
     }).compile();
 
     service = module.get<AuthService>(AuthService);
@@ -64,18 +69,22 @@ describe('AuthService', () => {
       expect(response.token).toBe('abcdefghi');
     });
     it('should be throw error when user not found', async () => {
-      await expect(() => service.login({
-        email: 'qwe@mail.com',
-        password: 'pass1234',
-        salt: ''
-      })).rejects.toThrow(BadRequestException);
+      await expect(() =>
+        service.login({
+          email: 'qwe@mail.com',
+          password: 'pass1234',
+          salt: ''
+        })
+      ).rejects.toThrow(BadRequestException);
     });
     it('should be able to return token on successful login', async () => {
-      await expect(service.login({
-        email: 'abc@mail.com',
-        password: 'pass1235',
-        salt: ''
-      })).rejects.toThrow(UnauthorizedException);
+      await expect(
+        service.login({
+          email: 'abc@mail.com',
+          password: 'pass1235',
+          salt: ''
+        })
+      ).rejects.toThrow(UnauthorizedException);
     });
-  })
+  });
 });
