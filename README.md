@@ -4,16 +4,18 @@
 
 - Starter kit for nest js based projects.
 - Basic authentication microservice consisting of
-  - Logging
-  - Swagger
-  - JWT and cookies
-  - Migrations
-  - HTTP logging - Interceptors
-  - Docker
-  - Unit testing
-  - Configuration
-  - Guards
-  - Validations
+  - [x] Authentication - JWT and cookies
+  - [ ] Authorization - RBAC
+  - [x] DB Migrations using Sequelize
+  - [x] Application Logging using Winston
+  - [x] HTTP logging using Interceptors
+  - [x] Swagger Documentation
+  - [x] Docker and docker-compose
+  - [ ] Unit and Integration testing
+  - [x] Environment Configuration
+  - [x] Guards
+  - [x] Validations
+  - [ ] Http Clients
 - Note: This is a boilerplate. For production readiness, cater the implementations according to the requirements
 
 ## Installation

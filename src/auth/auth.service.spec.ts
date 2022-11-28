@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 
-const salt = bcrypt.genSaltSync(parseInt(process.env.SALT_ROUNDS));
+const salt = bcrypt.genSaltSync(3);
 const hashedPassword = bcrypt.hashSync('pass1234', salt);
 
 const userServiceMock = {
