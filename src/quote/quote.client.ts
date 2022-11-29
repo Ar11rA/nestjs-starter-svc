@@ -4,6 +4,7 @@ import { HttpService } from '@nestjs/axios';
 import { IQuoteClient } from './interfaces/quote.client.interface';
 import { QuoteDTO } from './quote.dto';
 import { retry, Observable, lastValueFrom } from 'rxjs';
+import { randomQuotes } from './quote.constants';
 
 @Injectable()
 export class QuoteClient implements IQuoteClient {
@@ -15,11 +16,11 @@ export class QuoteClient implements IQuoteClient {
 
   async fetchQuote(): Promise<QuoteDTO> {
     const observable: Observable<any> = this.httpService
-      .get('https://api.quotable.io/random')
+      .get(randomQuotes.API_URL)
       .pipe(
         retry({
-          count: 3,
-          delay: 10000
+          count: randomQuotes.RETRY_COUNT,
+          delay: randomQuotes.BACKOFF
         })
       );
     const response = await lastValueFrom(observable);

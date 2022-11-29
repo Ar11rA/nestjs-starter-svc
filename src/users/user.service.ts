@@ -3,6 +3,7 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { IUserRepository } from './interfaces/user.repository.interface';
 import { IUserService } from './interfaces/user.service.interface';
+import { userErrors } from './user.constants';
 import { CreateUserDTO } from './user.dto';
 import { User } from './user.entity';
 
@@ -29,7 +30,7 @@ export class UserService implements IUserService {
   async getUser(id: number) {
     const user = await this.userRepository.getUser(id);
     if (!user) {
-      throw new NotFoundException('No user found!');
+      throw new NotFoundException(userErrors.USER_NOT_FOUND);
     }
     return user;
   }

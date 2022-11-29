@@ -13,6 +13,7 @@ import { IAuthService } from './interfaces/auth.service.interface';
 import { JwtService } from '@nestjs/jwt';
 import { LoginResponse } from './auth.dto';
 import { User } from 'src/users/user.entity';
+import { authErrors } from './auth.constants';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -26,7 +27,7 @@ export class AuthService implements IAuthService {
     const user = await this.userService.getUserByEmail(createUserDTO.email);
     if (!user) {
       this.logger.error(`Login failed for ${createUserDTO.email}`);
-      throw new BadRequestException('Username does not exist!');
+      throw new BadRequestException(authErrors.USERNAME_ALREADY_EXISTS);
     }
     const result: boolean = await bcrypt.compare(
       createUserDTO.password,
@@ -34,7 +35,7 @@ export class AuthService implements IAuthService {
     );
     if (!result) {
       this.logger.error(`Login failed for ${createUserDTO.email}`);
-      throw new UnauthorizedException('Username Password does not match!');
+      throw new UnauthorizedException(authErrors.USER_PASSWORD_MISMATCH);
     }
     const payload = { username: user.email, sub: user.id };
     return {
@@ -46,7 +47,7 @@ export class AuthService implements IAuthService {
     const user = await this.userService.getUserByEmail(createUserDTO.email);
     if (user) {
       this.logger.error(`Regsiter failed for ${createUserDTO.email}`);
-      throw new BadRequestException('Username already exists!');
+      throw new BadRequestException(authErrors.USERNAME_ALREADY_EXISTS);
     }
     const salt = await bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS));
 
