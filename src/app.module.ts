@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Res } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { WinstonModule } from 'nest-winston';
@@ -11,6 +11,7 @@ import { DatabaseModule } from './shared/database.module';
 import { LoggerConfig } from './shared/logger.config';
 import { LoggingInterceptor } from './shared/logging.interceptor';
 import { QuoteModule } from './quote/quote.module';
+import { RestModule } from './shared/rest.module';
 
 const logger: LoggerConfig = new LoggerConfig();
 
@@ -23,7 +24,8 @@ const logger: LoggerConfig = new LoggerConfig();
     UsersModule,
     AuthModule,
     DatabaseModule,
-    QuoteModule
+    QuoteModule,
+    RestModule
   ],
   controllers: [AppController],
   providers: [

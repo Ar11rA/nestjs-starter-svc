@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 
 import { IQuoteClient } from './interfaces/quote.client.interface';
 import { QuoteDTO } from './quote.dto';
-import { retry, Observable, lastValueFrom } from 'rxjs';
+import { retry, Observable, lastValueFrom, tap } from 'rxjs';
 import { randomQuotes } from './quote.constants';
 
 @Injectable()

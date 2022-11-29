@@ -11,11 +11,13 @@
   - [x] HTTP logging using Interceptors
   - [x] Swagger Documentation
   - [x] Docker and docker-compose
-  - [ ] Unit and Integration testing
   - [x] Environment Configuration
   - [x] Guards
   - [x] Validations
   - [x] Http Clients
+  - [ ] Masking PII
+  - [ ] Custom nest module
+  - [ ] Unit and Integration testing
 - Note: This is a boilerplate. For production readiness, cater the implementations according to the requirements
 
 ## Installation
