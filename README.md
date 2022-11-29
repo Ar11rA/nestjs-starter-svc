@@ -15,7 +15,7 @@
   - [x] Environment Configuration
   - [x] Guards
   - [x] Validations
-  - [ ] Http Clients
+  - [x] Http Clients
 - Note: This is a boilerplate. For production readiness, cater the implementations according to the requirements
 
 ## Installation
