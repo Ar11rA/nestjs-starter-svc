@@ -15,9 +15,8 @@
   - [x] Guards
   - [x] Validations
   - [x] Http Clients
-  - [ ] Masking PII
-  - [ ] Custom nest module
-  - [ ] Unit and Integration testing
+  - [x] Masking PII
+  - [x] Unit testing
 - Note: This is a boilerplate. For production readiness, cater the implementations according to the requirements
 
 ## Installation

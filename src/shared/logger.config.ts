@@ -10,6 +10,7 @@ export class LoggerConfig {
         format.colorize(),
         format.timestamp(),
         format.printf((msg) => {
+          // implement generic or specific masking logic here
           return `${msg.timestamp} [${msg.level}] - ${msg.message}`;
         })
       ),

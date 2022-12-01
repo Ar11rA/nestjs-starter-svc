@@ -39,6 +39,7 @@
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
+    "maskdata": "^1.2.0",
     "mysql2": "^2.3.3",
     "nest-winston": "^1.8.0",
     "pg": "^8.8.0",
